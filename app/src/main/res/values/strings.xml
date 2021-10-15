@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">NBA Players</string>
+    <string name="alert">Alert</string>
+    <string name="imagedescription">Picture of player</string>
+    <string name="about_title">Title</string>
+    <string name="about_message">Message</string>
+</resources>
