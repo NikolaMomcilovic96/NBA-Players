@@ -2,44 +2,50 @@ package com.raywenderlich.nbaplayers
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.view.WindowCompat
+import com.raywenderlich.nbaplayers.databinding.ActivityPlayerDetailBinding
 
 class PlayerDetailActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityPlayerDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player_detail)
-        
+
         WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        binding = ActivityPlayerDetailBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         showPlayerDetails()
     }
 
     private fun showPlayerDetails(){
-        val playerName = intent.getStringExtra("title")
+        val playerTitle = intent.getStringExtra("title")
         val playerDesc = intent.getStringExtra("desc")
         val playerImage = intent.getIntExtra("image", 0)
         val playerClub = intent.getStringExtra("club")
         val playerHeight = intent.getStringExtra("height")
         val playerWeight = intent.getStringExtra("weight")
-        findViewById<TextView>(R.id.playerTitleTextView).apply {
-            text = playerName.toString()
+
+        binding.playerTitleTextView.apply {
+            text = playerTitle.toString()
         }
-        findViewById<TextView>(R.id.playerDescTextView).apply {
-            text = playerDesc.toString()
+        binding.playerDescTextView.apply {
+            text=playerDesc.toString()
         }
-        findViewById<ImageView>(R.id.playerImageView).apply {
+        binding.playerImageView.apply {
             setImageResource(playerImage)
         }
-        findViewById<TextView>(R.id.playerClubTextView).apply {
+        binding.playerClubTextView.apply {
             text = playerClub.toString()
         }
-        findViewById<TextView>(R.id.playerHeightTextView).apply {
+        binding.playerHeightTextView.apply {
             text = playerHeight.toString()
         }
-        findViewById<TextView>(R.id.playerWeightTextView).apply {
+        binding.playerWeightTextView.apply {
             text = playerWeight.toString()
         }
     }
