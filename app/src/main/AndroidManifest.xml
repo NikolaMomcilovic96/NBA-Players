@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NBAPlayers">
         <activity
+            android:name=".ui.detail.PlayerDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
