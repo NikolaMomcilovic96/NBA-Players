@@ -8,17 +8,10 @@ import androidx.core.view.WindowCompat
 
 class PlayerDetailActivity : AppCompatActivity() {
 
-    private lateinit var binding: PlayerDetailActivityBinding
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player_detail)
-
-        binding = PlayerDetailActivityBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
-
+        
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         showPlayerDetails()
