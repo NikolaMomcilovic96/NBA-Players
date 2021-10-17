@@ -7,7 +7,7 @@ import com.raywenderlich.nbaplayers.databinding.ListSelectionViewHolderBinding
 
 class ListSelectionRecyclerViewAdapter(
     private val players: ArrayList<Model>,
-    private val onPlayerClickListener: (Model, String)->Unit
+    private val onPlayerClickListener: (Model, Enum)->Unit
 ) :
     RecyclerView.Adapter<ListSelectionViewHolder>() {
 
@@ -26,11 +26,11 @@ class ListSelectionRecyclerViewAdapter(
         holder.binding.imageView.setImageResource(players[position].image)
 
         holder.binding.cardView.setOnClickListener {
-            onPlayerClickListener(players[position], "card")
+            onPlayerClickListener(players[position], Enum.Card)
         }
 
         holder.binding.alertButton.setOnClickListener {
-            onPlayerClickListener(players[position], "alert")
+            onPlayerClickListener(players[position], Enum.Alert)
         }
     }
 

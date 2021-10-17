@@ -55,8 +55,6 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -67,22 +65,20 @@ class MainFragment : Fragment() {
         binding.recyclerView.adapter = ListSelectionRecyclerViewAdapter(players) { model, clicked ->
 
             when (clicked) {
-                "alert" -> showAlert(model.title, model.desc)
-                "card" -> playerActivity(model)
+                Enum.Alert -> showAlert(model.title, model.desc)
+                Enum.Card -> playerActivity(model)
             }
         }
-
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
     }
 
     private fun showAlert(name: String, description: String) {
         val dialogBuilder = AlertDialog.Builder(activity)
-        dialogBuilder.setMessage(description).setNeutralButton("OK") { dialog, _ ->
+        dialogBuilder.setMessage(description).setNeutralButton(R.string.alert_button) { dialog, _ ->
             dialog.dismiss()
         }
         val alert = dialogBuilder.create()

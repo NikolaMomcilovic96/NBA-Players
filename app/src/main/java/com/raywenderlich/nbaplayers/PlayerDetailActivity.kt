@@ -22,7 +22,7 @@ class PlayerDetailActivity : AppCompatActivity() {
         showPlayerDetails()
     }
 
-    private fun showPlayerDetails(){
+    private fun showPlayerDetails() {
         val playerTitle = intent.getStringExtra("title")
         val playerDesc = intent.getStringExtra("desc")
         val playerImage = intent.getIntExtra("image", 0)
@@ -30,23 +30,11 @@ class PlayerDetailActivity : AppCompatActivity() {
         val playerHeight = intent.getStringExtra("height")
         val playerWeight = intent.getStringExtra("weight")
 
-        binding.playerTitleTextView.apply {
-            text = playerTitle.toString()
-        }
-        binding.playerDescTextView.apply {
-            text=playerDesc.toString()
-        }
-        binding.playerImageView.apply {
-            setImageResource(playerImage)
-        }
-        binding.playerClubTextView.apply {
-            text = playerClub.toString()
-        }
-        binding.playerHeightTextView.apply {
-            text = playerHeight.toString()
-        }
-        binding.playerWeightTextView.apply {
-            text = playerWeight.toString()
-        }
+        binding.playerTitleTextView.text = playerTitle.toString()
+        binding.playerDescTextView.text = playerDesc.toString()
+        binding.playerImageView.setImageResource(playerImage)
+        binding.playerClubTextView.text = playerClub.toString()
+        binding.playerHeightTextView.text = playerHeight.toString()
+        binding.playerWeightTextView.text = playerWeight.toString()
     }
 }
