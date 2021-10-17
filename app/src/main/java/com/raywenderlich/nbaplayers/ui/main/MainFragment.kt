@@ -1,5 +1,7 @@
 package com.raywenderlich.nbaplayers.ui.main
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -66,7 +68,7 @@ class MainFragment : Fragment() {
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = ListSelectionRecyclerViewAdapter(players) { model ->
-            Log.d("Pera", "Poruka ${model.title}")
+            showAlert(model.title, model.desc)
         }
 
         return binding.root
@@ -75,5 +77,15 @@ class MainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+    }
+
+    private fun showAlert(name: String, description: String) {
+        val dialogBuilder = AlertDialog.Builder(activity)
+        dialogBuilder.setMessage(description).setNeutralButton("OK") { dialog, _ ->
+            dialog.dismiss()
+        }
+        val alert = dialogBuilder.create()
+        alert.setTitle(name)
+        alert.show()
     }
 }

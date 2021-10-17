@@ -28,6 +28,10 @@ class ListSelectionRecyclerViewAdapter(
         holder.binding.cardView.setOnClickListener {
             onPlayerClickListener(players[position])
         }
+
+        holder.binding.alertButton.setOnClickListener {
+            onPlayerClickListener(players[position])
+        }
     }
 
     override fun getItemCount(): Int {
