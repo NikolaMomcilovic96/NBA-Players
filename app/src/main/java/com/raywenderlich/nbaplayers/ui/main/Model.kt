@@ -8,3 +8,8 @@ data class Model(
     val weight: String,
     val club: String
 )
+
+data class User(
+    val username: String = "Nikola",
+    val password: String = "Momcilovic96"
+)

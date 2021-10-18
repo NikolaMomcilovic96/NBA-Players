@@ -28,6 +28,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun inputCheck() {
+        val user = User()
+
         if (binding.userNameEditText.text?.toString()
                 .equals("") || binding.passwordEditText.text?.toString().equals("")
         ) {
@@ -37,12 +39,12 @@ class LoginActivity : AppCompatActivity() {
         } else if (!passwordCheck(binding.passwordEditText.text.toString())) {
             Toast.makeText(this, R.string.password_format, Toast.LENGTH_SHORT).show()
         } else {
-            if (binding.userNameEditText.text.toString() == "Nikola" && binding.passwordEditText.text.toString() == "Momcilovic96") {
+            if (binding.userNameEditText.text.toString() == user.username && binding.passwordEditText.text.toString() == user.password) {
                 startActivity(Intent(this, MainActivity::class.java))
-            } else if (binding.userNameEditText.text.toString() == "Nikola" && binding.passwordEditText.text.toString() != "Momcilovic96") {
+            } else if (binding.userNameEditText.text.toString() == user.username && binding.passwordEditText.text.toString() != user.password) {
                 binding.passwordEditText.text?.clear()
                 Toast.makeText(this, R.string.wrong_password, Toast.LENGTH_SHORT).show()
-            } else if (binding.userNameEditText.text.toString() != "Nikola" && binding.passwordEditText.text.toString() == "Momcilovic96") {
+            } else if (binding.userNameEditText.text.toString() != user.username && binding.passwordEditText.text.toString() == user.password) {
                 binding.userNameEditText.text?.clear()
                 Toast.makeText(this, R.string.wrong_username, Toast.LENGTH_SHORT).show()
             }else{
@@ -52,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun passwordCheck(pass: String): Boolean {
-        val regex: Pattern = Pattern.compile("""^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$""")
+        val regex: Pattern = Pattern.compile("""^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$""")
         val text: Matcher = regex.matcher(pass)
         return text.matches()
     }
