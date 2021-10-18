@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.raywenderlich.nbaplayers.databinding.ActivityLoginBinding
 import com.raywenderlich.nbaplayers.ui.main.AppPreferences
+import com.raywenderlich.nbaplayers.ui.main.Model
 import com.raywenderlich.nbaplayers.ui.main.User
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -18,16 +19,17 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+
         binding = ActivityLoginBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
+        AppPreferences.init(this)
+        isLoggedIn()
+
         binding.loginButton.setOnClickListener {
             inputCheck()
         }
-
-
-        AppPreferences.init(this)
     }
 
     private fun inputCheck() {
@@ -66,7 +68,16 @@ class LoginActivity : AppCompatActivity() {
         AppPreferences.username = user.username
         AppPreferences.password = user.password
         AppPreferences.firstName = user.firstName
+        AppPreferences.isLogged = true
 
         startActivity(Intent(this, MainActivity::class.java))
+    }
+
+    private fun isLoggedIn() {
+        if (AppPreferences.isLogged) {
+            val user =
+                User(AppPreferences.username, AppPreferences.password, AppPreferences.firstName)
+            newActivity(user)
+        }
     }
 }
