@@ -19,10 +19,6 @@ class PlayerDetailActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        showPlayerDetails()
-    }
-
-    private fun showPlayerDetails() {
         val playerTitle = intent.getStringExtra("title")
         val playerDesc = intent.getStringExtra("desc")
         val playerImage = intent.getIntExtra("image", 0)

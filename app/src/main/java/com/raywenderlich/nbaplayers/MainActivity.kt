@@ -1,9 +1,9 @@
 package com.raywenderlich.nbaplayers
 
-import android.content.ContentProviderOperation
-import android.content.Context
-import android.content.SharedPreferences
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
@@ -36,5 +36,18 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, "Hello ${AppPreferences.firstName}", Toast.LENGTH_LONG).show()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        super.onCreateOptionsMenu(menu)
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.logout_item) {
+            AppPreferences.isLogged = false
+            startActivity(Intent(this, LoginActivity::class.java))
+            Toast.makeText(this, R.string.logout_message, Toast.LENGTH_LONG).show()
+        }
+        return true
+    }
 }

@@ -8,6 +8,7 @@
     <string name="players">Players</string>
     <string name="alert_button">OK</string>
     <string name="log_in_button">Log in</string>
+    <string name="logout">Logout</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login_error">Wrong username or password</string>
@@ -16,4 +17,11 @@
     <string name="wrong_password">Wrong password</string>
     <string name="password_format">Password needs at least 6 characters, 1 uppercase letter and 1 number</string>
     <string name="empty_fields">"Both fields are required"</string>
+    <string name="title">title</string>
+    <string name="desc">desc</string>
+    <string name="image">image</string>
+    <string name="club">club</string>
+    <string name="height">height</string>
+    <string name="weight">weight</string>
+    <string name="logout_message">Hope to see you again</string>
 </resources>

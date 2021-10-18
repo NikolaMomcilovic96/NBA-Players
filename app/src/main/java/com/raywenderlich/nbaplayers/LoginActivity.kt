@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.widget.Toast
 import com.raywenderlich.nbaplayers.databinding.ActivityLoginBinding
 import com.raywenderlich.nbaplayers.ui.main.AppPreferences
-import com.raywenderlich.nbaplayers.ui.main.Model
-import com.raywenderlich.nbaplayers.ui.main.User
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -15,10 +13,15 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
 
+    class User(
+        val username: String = "nikola",
+        val password: String = "Momcilovic96",
+        val firstName: String = "Nikola"
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         val view = binding.root
@@ -59,7 +62,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun passwordCheck(pass: String): Boolean {
-        val regex: Pattern = Pattern.compile("""^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$""")
+        val regex: Pattern = Pattern.compile("""^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}${'$'}""")
         val text: Matcher = regex.matcher(pass)
         return text.matches()
     }

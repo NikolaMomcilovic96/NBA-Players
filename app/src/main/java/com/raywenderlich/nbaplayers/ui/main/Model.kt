@@ -3,19 +3,13 @@ package com.raywenderlich.nbaplayers.ui.main
 import android.content.Context
 import android.content.SharedPreferences
 
-data class Model(
+data class Player(
     val title: String,
     val desc: String,
     val image: Int,
     val height: String,
     val weight: String,
     val club: String
-)
-
-class User(
-    val username: String = "nikola",
-    val password: String = "Momcilovic96",
-    val firstName: String = "Nikola"
 )
 
 object AppPreferences {
