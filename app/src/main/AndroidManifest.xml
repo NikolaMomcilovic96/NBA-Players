@@ -10,9 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NBAPlayers">
         <activity
+            android:name=".ui.main.LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".PlayerDetailActivity"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

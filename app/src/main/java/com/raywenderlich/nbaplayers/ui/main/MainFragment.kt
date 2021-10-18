@@ -2,7 +2,6 @@ package com.raywenderlich.nbaplayers.ui.main
 
 import android.app.AlertDialog
 import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -70,10 +69,6 @@ class MainFragment : Fragment() {
             }
         }
         return binding.root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
     }
 
     private fun showAlert(name: String, description: String) {
