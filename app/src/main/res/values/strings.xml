@@ -8,4 +8,6 @@
     <string name="players">Players</string>
     <string name="alert_button">OK</string>
     <string name="log_in_button">Log in</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
 </resources>
