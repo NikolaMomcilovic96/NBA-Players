@@ -1,10 +1,14 @@
 package com.raywenderlich.nbaplayers
 
+import android.content.ContentProviderOperation
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import com.raywenderlich.nbaplayers.databinding.MainActivityBinding
+import com.raywenderlich.nbaplayers.ui.main.AppPreferences
 import com.raywenderlich.nbaplayers.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
@@ -27,5 +31,10 @@ class MainActivity : AppCompatActivity() {
                 .commitNow()
         }
 
+        AppPreferences.init(this)
+
+        Toast.makeText(this, "Hello ${AppPreferences.firstName}", Toast.LENGTH_LONG).show()
     }
+
+
 }
