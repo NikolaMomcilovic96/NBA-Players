@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import com.raywenderlich.nbaplayers.databinding.MainActivityBinding
 import com.raywenderlich.nbaplayers.ui.main.MainFragment
-import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
 
@@ -59,8 +58,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-
         finishAffinity()
     }
 }
