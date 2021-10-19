@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.logout_item) {
-            sharedPreferences = getSharedPreferences(R.string.sharedPref.toString(),Context.MODE_PRIVATE)
             val isLogged = false
             val editor = sharedPreferences.edit()
             editor.putBoolean(R.string.IS_LOGGED.toString(), isLogged)

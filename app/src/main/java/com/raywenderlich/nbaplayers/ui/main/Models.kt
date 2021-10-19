@@ -11,6 +11,5 @@ data class Player(
 
 class User(
     val username: String = "nikola",
-    val password: String = "Momcilovic96",
-    val firstName: String = "Nikola"
+    val password: String = "Momcilovic96"
 )

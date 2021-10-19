@@ -42,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.empty_fields, Toast.LENGTH_SHORT).show()
         } else if (binding.userNameEditText.text?.length!! < 4) {
             Toast.makeText(this, R.string.short_username, Toast.LENGTH_SHORT).show()
-        } else if (!passwordCheck(binding.passwordEditText.text.toString())) {
+        } else if (!passwordFormatCheck(binding.passwordEditText.text.toString())) {
             Toast.makeText(this, R.string.password_format, Toast.LENGTH_SHORT).show()
         } else {
             if (binding.userNameEditText.text.toString() == user.username && binding.passwordEditText.text.toString() == user.password) {
@@ -59,40 +59,32 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun passwordCheck(pass: String): Boolean {
+    private fun passwordFormatCheck(pass: String): Boolean {
         val regex: Pattern =
-            Pattern.compile("""^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}${'$'}""")
+            Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}${'$'}")
         val text: Matcher = regex.matcher(pass)
         return text.matches()
     }
 
-    private fun newActivity(user: User) {
-        val username = user.username
-        val password = user.password
-        val firstName = user.firstName
-        val isLogged = true
-
-        val editor = sharedPreferences.edit()
-        editor.putString(R.string.USERNAME.toString(), username)
-        editor.putString(R.string.PASSWORD.toString(), password)
-        editor.putString(R.string.FIRSTNAME.toString(), firstName)
-        editor.putBoolean(R.string.IS_LOGGED.toString(), isLogged)
-        editor.apply()
-
-        startActivity(Intent(this, MainActivity::class.java))
-    }
-
     private fun isLoggedIn() {
-        sharedPreferences = getSharedPreferences(R.string.sharedPref.toString(), Context.MODE_PRIVATE)
         val isLogged = sharedPreferences.getBoolean(R.string.IS_LOGGED.toString(), false)
 
         if (isLogged) {
             val username = sharedPreferences.getString(R.string.USERNAME.toString(), "").toString()
             val password = sharedPreferences.getString(R.string.PASSWORD.toString(), "").toString()
-            val firstName = sharedPreferences.getString(R.string.FIRSTNAME.toString(), "").toString()
-            val user = User(username, password, firstName)
+            val user = User(username, password)
 
             newActivity(user)
         }
+    }
+
+    private fun newActivity(user: User) {
+        val editor = sharedPreferences.edit()
+        editor.putString(R.string.USERNAME.toString(), user.username)
+        editor.putString(R.string.PASSWORD.toString(), user.password)
+        editor.putBoolean(R.string.IS_LOGGED.toString(), true)
+        editor.apply()
+
+        startActivity(Intent(this, MainActivity::class.java))
     }
 }
