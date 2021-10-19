@@ -87,4 +87,10 @@ class LoginActivity : AppCompatActivity() {
 
         startActivity(Intent(this, MainActivity::class.java))
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        finishAffinity()
+    }
 }
