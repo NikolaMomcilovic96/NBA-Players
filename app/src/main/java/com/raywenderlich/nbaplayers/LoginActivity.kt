@@ -24,7 +24,8 @@ class LoginActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        sharedPreferences = getSharedPreferences(R.string.sharedPref.toString(), Context.MODE_PRIVATE)
+        sharedPreferences =
+            getSharedPreferences(R.string.sharedPref.toString(), Context.MODE_PRIVATE)
 
         isLoggedIn()
 
@@ -36,21 +37,26 @@ class LoginActivity : AppCompatActivity() {
     private fun inputCheck() {
         val user = User()
 
-        if (binding.userNameEditText.text?.toString()
-                .equals("") || binding.passwordEditText.text?.toString().equals("")
+        val username = binding.userNameEditText.text?.toString()
+        val password = binding.passwordEditText.text?.toString()
+        val newUsername = username?.replace("\\s".toRegex(), "")
+        val newPassword = password?.replace("\\s".toRegex(), "")
+
+        if (newUsername
+                .equals("") || newPassword.equals("")
         ) {
             Toast.makeText(this, R.string.empty_fields, Toast.LENGTH_SHORT).show()
-        } else if (binding.userNameEditText.text?.length!! < 4) {
+        } else if (newUsername?.length!! < 4) {
             Toast.makeText(this, R.string.short_username, Toast.LENGTH_SHORT).show()
-        } else if (!passwordFormatCheck(binding.passwordEditText.text.toString())) {
+        } else if (!passwordFormatCheck(newPassword.toString())) {
             Toast.makeText(this, R.string.password_format, Toast.LENGTH_SHORT).show()
         } else {
-            if (binding.userNameEditText.text.toString() == user.username && binding.passwordEditText.text.toString() == user.password) {
+            if (newUsername.toString() == user.username && newPassword.toString() == user.password) {
                 newActivity(user)
-            } else if (binding.userNameEditText.text.toString() == user.username && binding.passwordEditText.text.toString() != user.password) {
+            } else if (newUsername.toString() == user.username && newPassword.toString() != user.password) {
                 binding.passwordEditText.text?.clear()
                 Toast.makeText(this, R.string.wrong_password, Toast.LENGTH_SHORT).show()
-            } else if (binding.userNameEditText.text.toString() != user.username && binding.passwordEditText.text.toString() == user.password) {
+            } else if (newUsername.toString() != user.username && newPassword.toString() == user.password) {
                 binding.userNameEditText.text?.clear()
                 Toast.makeText(this, R.string.wrong_username, Toast.LENGTH_SHORT).show()
             } else {

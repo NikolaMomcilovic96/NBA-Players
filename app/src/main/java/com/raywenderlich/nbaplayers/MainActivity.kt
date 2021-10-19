@@ -33,10 +33,11 @@ class MainActivity : AppCompatActivity() {
                 .commitNow()
         }
 
-        sharedPreferences = getSharedPreferences(R.string.sharedPref.toString(), Context.MODE_PRIVATE)
-        val firstName = sharedPreferences.getString(R.string.FIRSTNAME.toString(),"")
+        sharedPreferences =
+            getSharedPreferences(R.string.sharedPref.toString(), Context.MODE_PRIVATE)
+        val username = sharedPreferences.getString(R.string.USERNAME.toString(), "")
 
-        Toast.makeText(this, "Hello $firstName", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "Hello $username", Toast.LENGTH_LONG).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
