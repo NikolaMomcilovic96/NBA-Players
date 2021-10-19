@@ -1,6 +1,8 @@
 package com.raywenderlich.nbaplayers
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -8,12 +10,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import com.raywenderlich.nbaplayers.databinding.MainActivityBinding
-import com.raywenderlich.nbaplayers.ui.main.AppPreferences
 import com.raywenderlich.nbaplayers.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: MainActivityBinding
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +33,10 @@ class MainActivity : AppCompatActivity() {
                 .commitNow()
         }
 
-        AppPreferences.init(this)
+        sharedPreferences = getSharedPreferences(R.string.sharedPref.toString(), Context.MODE_PRIVATE)
+        val firstName = sharedPreferences.getString(R.string.FIRSTNAME.toString(),"")
 
-        Toast.makeText(this, "Hello ${AppPreferences.firstName}", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "Hello $firstName", Toast.LENGTH_LONG).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -44,7 +47,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.logout_item) {
-            AppPreferences.isLogged = false
+            sharedPreferences = getSharedPreferences(R.string.sharedPref.toString(),Context.MODE_PRIVATE)
+            val isLogged = false
+            val editor = sharedPreferences.edit()
+            editor.putBoolean(R.string.IS_LOGGED.toString(), isLogged)
+            editor.apply()
             startActivity(Intent(this, LoginActivity::class.java))
             Toast.makeText(this, R.string.logout_message, Toast.LENGTH_LONG).show()
         }

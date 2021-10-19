@@ -24,4 +24,9 @@
     <string name="height">height</string>
     <string name="weight">weight</string>
     <string name="logout_message">Hope to see you again</string>
+    <string name="USERNAME">USERNAME</string>
+    <string name="PASSWORD">PASSWORD</string>
+    <string name="FIRSTNAME">FIRSTNAME</string>
+    <string name="IS_LOGGED">IS_LOGGED</string>
+    <string name="sharedPref">sharedPref</string>
 </resources>
