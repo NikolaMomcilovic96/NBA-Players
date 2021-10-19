@@ -19,12 +19,12 @@ class PlayerDetailActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        val playerTitle = intent.getStringExtra("title")
-        val playerDesc = intent.getStringExtra("desc")
-        val playerImage = intent.getIntExtra("image", 0)
-        val playerClub = intent.getStringExtra("club")
-        val playerHeight = intent.getStringExtra("height")
-        val playerWeight = intent.getStringExtra("weight")
+        val playerTitle = intent.getStringExtra(R.string.title.toString())
+        val playerDesc = intent.getStringExtra(R.string.desc.toString())
+        val playerImage = intent.getIntExtra(R.string.image.toString(), 0)
+        val playerClub = intent.getStringExtra(R.string.club.toString())
+        val playerHeight = intent.getStringExtra(R.string.height.toString())
+        val playerWeight = intent.getStringExtra(R.string.weight.toString())
 
         binding.playerTitleTextView.text = playerTitle.toString()
         binding.playerDescTextView.text = playerDesc.toString()
