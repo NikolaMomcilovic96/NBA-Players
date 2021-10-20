@@ -27,6 +27,6 @@
     <string name="USERNAME">USERNAME</string>
     <string name="PASSWORD">PASSWORD</string>
     <string name="FIRSTNAME">FIRSTNAME</string>
-    <string name="IS_LOGGED">IS_LOGGED</string>
+    <string name="IS_USER_LOGGED_IN">IS_USER_LOGGED_IN</string>
     <string name="sharedPref">sharedPref</string>
 </resources>

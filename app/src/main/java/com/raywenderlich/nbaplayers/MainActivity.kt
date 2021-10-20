@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        setContentView(R.layout.main_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, MainFragment.newInstance())
@@ -50,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         if (item.itemId == R.id.logout_item) {
             val isLogged = false
             val editor = sharedPreferences.edit()
-            editor.putBoolean(R.string.IS_LOGGED.toString(), isLogged)
+            editor.putBoolean(R.string.IS_USER_LOGGED_IN.toString(), isLogged)
             editor.apply()
             startActivity(Intent(this, LoginActivity::class.java))
             Toast.makeText(this, R.string.logout_message, Toast.LENGTH_LONG).show()
