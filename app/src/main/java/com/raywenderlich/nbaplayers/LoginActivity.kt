@@ -74,7 +74,12 @@ class LoginActivity : AppCompatActivity() {
             putBoolean(R.string.IS_USER_LOGGED_IN.toString(), true)
         }.apply()
 
+        finish()
         startActivity(Intent(this, MainActivity::class.java))
+    }
+
+    override fun onBackPressed() {
+        finish()
     }
 }
 

@@ -51,13 +51,10 @@ class MainActivity : AppCompatActivity() {
             val editor = sharedPreferences.edit()
             editor.putBoolean(R.string.IS_USER_LOGGED_IN.toString(), isLogged)
             editor.apply()
+            finish()
             startActivity(Intent(this, LoginActivity::class.java))
             Toast.makeText(this, R.string.logout_message, Toast.LENGTH_LONG).show()
         }
         return true
-    }
-
-    override fun onBackPressed() {
-        finishAffinity()
     }
 }
