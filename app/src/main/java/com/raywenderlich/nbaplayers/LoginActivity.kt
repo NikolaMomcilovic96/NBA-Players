@@ -24,13 +24,14 @@ class LoginActivity : AppCompatActivity() {
         setContentView(view)
 
         sharedPreferences =
-            getSharedPreferences(R.string.sharedPref.toString(), Context.MODE_PRIVATE)
+            getSharedPreferences(Constants.SharedPref.toString(), Context.MODE_PRIVATE)
 
-        val isUserLoggedIn = sharedPreferences.getBoolean(R.string.IS_USER_LOGGED_IN.toString(), false)
+        val isUserLoggedIn =
+            sharedPreferences.getBoolean(Constants.IS_USER_LOGGED_IN.toString(), false)
 
         if (isUserLoggedIn) {
-            val username = sharedPreferences.getString(R.string.USERNAME.toString(), "").toString()
-            val password = sharedPreferences.getString(R.string.PASSWORD.toString(), "").toString()
+            val username = sharedPreferences.getString(Constants.USERNAME.toString(), "").toString()
+            val password = sharedPreferences.getString(Constants.PASSWORD.toString(), "").toString()
             val user = User(username, password)
 
             newActivity(user)
@@ -50,8 +51,9 @@ class LoginActivity : AppCompatActivity() {
         when {
             username.isNullOrEmpty() || password.isNullOrEmpty() -> toastMessage(R.string.empty_fields)
             username.length < 4 -> toastMessage(R.string.short_username)
-            !passwordFormatCheck(password.toString()) -> toastMessage(R.string.password_format)
-            username.toString() == user.username && password.toString() == user.password -> newActivity(user)
+            !passwordFormatCheck(password) -> toastMessage(R.string.password_format)
+            username == user.username && password == user.password -> newActivity(
+                user)
             else -> toastMessage(R.string.login_error)
         }
     }
@@ -69,9 +71,9 @@ class LoginActivity : AppCompatActivity() {
 
     private fun newActivity(user: User) {
         sharedPreferences.edit().apply {
-            putString(R.string.USERNAME.toString(), user.username)
-            putString(R.string.PASSWORD.toString(), user.password)
-            putBoolean(R.string.IS_USER_LOGGED_IN.toString(), true)
+            putString(Constants.USERNAME.toString(), user.username)
+            putString(Constants.PASSWORD.toString(), user.password)
+            putBoolean(Constants.IS_USER_LOGGED_IN.toString(), true)
         }.apply()
 
         finish()

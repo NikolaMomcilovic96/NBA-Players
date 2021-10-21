@@ -8,8 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.raywenderlich.nbaplayers.PlayerDetailActivity
-import com.raywenderlich.nbaplayers.R
+import com.raywenderlich.nbaplayers.*
 import com.raywenderlich.nbaplayers.databinding.MainFragmentBinding
 
 class MainFragment : Fragment() {
@@ -85,12 +84,12 @@ class MainFragment : Fragment() {
     private fun playerActivity(player: Player) {
         startActivity(
             Intent(activity, PlayerDetailActivity::class.java).apply {
-                putExtra(R.string.title.toString(), player.title)
-                putExtra(R.string.desc.toString(), player.desc)
-                putExtra(R.string.image.toString(), player.image)
-                putExtra(R.string.height.toString(), player.height)
-                putExtra(R.string.weight.toString(), player.weight)
-                putExtra(R.string.club.toString(), player.club)
+                putExtra(Constants.Title.toString(), player.title)
+                putExtra(Constants.Desc.toString(), player.desc)
+                putExtra(Constants.Image.toString(), player.image)
+                putExtra(Constants.Height.toString(), player.height)
+                putExtra(Constants.Weight.toString(), player.weight)
+                putExtra(Constants.Club.toString(), player.club)
             }
         )
     }

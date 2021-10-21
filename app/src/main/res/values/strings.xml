@@ -17,16 +17,6 @@
     <string name="wrong_password">Wrong password</string>
     <string name="password_format">Password needs at least 6 characters, 1 uppercase letter and 1 number</string>
     <string name="empty_fields">"Both fields are required"</string>
-    <string name="title">title</string>
-    <string name="desc">desc</string>
-    <string name="image">image</string>
-    <string name="club">club</string>
-    <string name="height">height</string>
-    <string name="weight">weight</string>
     <string name="logout_message">Hope to see you again</string>
-    <string name="USERNAME">USERNAME</string>
-    <string name="PASSWORD">PASSWORD</string>
-    <string name="FIRSTNAME">FIRSTNAME</string>
-    <string name="IS_USER_LOGGED_IN">IS_USER_LOGGED_IN</string>
-    <string name="sharedPref">sharedPref</string>
+    <string name="title">title</string>
 </resources>
