@@ -24,14 +24,14 @@ class LoginActivity : AppCompatActivity() {
         setContentView(view)
 
         sharedPreferences =
-            getSharedPreferences(Constants.SharedPref.toString(), Context.MODE_PRIVATE)
+            getSharedPreferences(Constants.sharedPref, Context.MODE_PRIVATE)
 
         val isUserLoggedIn =
-            sharedPreferences.getBoolean(Constants.IS_USER_LOGGED_IN.toString(), false)
+            sharedPreferences.getBoolean(Constants.IS_USER_LOGGED_IN, false)
 
         if (isUserLoggedIn) {
-            val username = sharedPreferences.getString(Constants.USERNAME.toString(), "").toString()
-            val password = sharedPreferences.getString(Constants.PASSWORD.toString(), "").toString()
+            val username = sharedPreferences.getString(Constants.USERNAME, "").toString()
+            val password = sharedPreferences.getString(Constants.PASSWORD, "").toString()
             val user = User(username, password)
 
             newActivity(user)
@@ -71,9 +71,9 @@ class LoginActivity : AppCompatActivity() {
 
     private fun newActivity(user: User) {
         sharedPreferences.edit().apply {
-            putString(Constants.USERNAME.toString(), user.username)
-            putString(Constants.PASSWORD.toString(), user.password)
-            putBoolean(Constants.IS_USER_LOGGED_IN.toString(), true)
+            putString(Constants.USERNAME, user.username)
+            putString(Constants.PASSWORD, user.password)
+            putBoolean(Constants.IS_USER_LOGGED_IN, true)
         }.apply()
 
         finish()

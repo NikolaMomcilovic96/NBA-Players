@@ -33,10 +33,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         sharedPreferences =
-            getSharedPreferences(Constants.SharedPref.toString(), Context.MODE_PRIVATE)
-        val username = sharedPreferences.getString(Constants.USERNAME.toString(), "")
+            getSharedPreferences(Constants.sharedPref, Context.MODE_PRIVATE)
+        val username = sharedPreferences.getString(Constants.USERNAME, "")
 
-        Toast.makeText(this, Constants.Hello.toString() + " " + username, Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "${Constants.hello_msg} $username", Toast.LENGTH_LONG).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         if (item.itemId == R.id.logout_item) {
             val isLogged = false
             val editor = sharedPreferences.edit()
-            editor.putBoolean(Constants.IS_USER_LOGGED_IN.toString(), isLogged)
+            editor.putBoolean(Constants.IS_USER_LOGGED_IN, isLogged)
             editor.apply()
             finish()
             startActivity(Intent(this, LoginActivity::class.java))

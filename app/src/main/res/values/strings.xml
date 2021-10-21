@@ -18,5 +18,4 @@
     <string name="password_format">Password needs at least 6 characters, 1 uppercase letter and 1 number</string>
     <string name="empty_fields">"Both fields are required"</string>
     <string name="logout_message">Hope to see you again</string>
-    <string name="title">title</string>
 </resources>
