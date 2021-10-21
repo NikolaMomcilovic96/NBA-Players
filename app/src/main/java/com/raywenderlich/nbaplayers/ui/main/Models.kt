@@ -6,10 +6,10 @@ data class Player(
     val image: Int,
     val height: String,
     val weight: String,
-    val club: String,
+    val club: String
 )
 
 data class User(
     val username: String = "nikola",
-    val password: String = "Momcilovic96",
+    val password: String = "Momcilovic96"
 )
