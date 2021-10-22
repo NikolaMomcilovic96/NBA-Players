@@ -47,9 +47,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.logout_item) {
-            val isLogged = false
             val editor = sharedPreferences.edit()
-            editor.putBoolean(Constants.IS_USER_LOGGED_IN, isLogged)
+            editor.putString(Constants.USERNAME, "")
             editor.apply()
             finish()
             startActivity(Intent(this, LoginActivity::class.java))

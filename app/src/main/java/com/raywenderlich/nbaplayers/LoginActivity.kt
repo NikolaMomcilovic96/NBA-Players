@@ -26,19 +26,17 @@ class LoginActivity : AppCompatActivity() {
         sharedPreferences =
             getSharedPreferences(Constants.sharedPref, Context.MODE_PRIVATE)
 
-        val isUserLoggedIn =
-            sharedPreferences.getBoolean(Constants.IS_USER_LOGGED_IN, false)
+        val isUsernameSaved = sharedPreferences.getString(Constants.USERNAME, "")
 
-        if (isUserLoggedIn) {
+        if (isUsernameSaved.isNullOrEmpty()){
+            binding.loginButton.setOnClickListener {
+                inputCheck()
+            }
+        }else{
             val username = sharedPreferences.getString(Constants.USERNAME, "").toString()
             val password = sharedPreferences.getString(Constants.PASSWORD, "").toString()
-            val user = User(username, password)
 
-            newActivity(user)
-        }
-
-        binding.loginButton.setOnClickListener {
-            inputCheck()
+            newActivity(username, password)
         }
     }
 
@@ -53,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
             username.length < 4 -> toastMessage(R.string.short_username)
             !passwordFormatCheck(password) -> toastMessage(R.string.password_format)
             username == user.username && password == user.password -> newActivity(
-                user)
+                username, password)
             else -> toastMessage(R.string.login_error)
         }
     }
@@ -69,11 +67,10 @@ class LoginActivity : AppCompatActivity() {
         return text.matches()
     }
 
-    private fun newActivity(user: User) {
+    private fun newActivity(username: String, password: String) {
         sharedPreferences.edit().apply {
-            putString(Constants.USERNAME, user.username)
-            putString(Constants.PASSWORD, user.password)
-            putBoolean(Constants.IS_USER_LOGGED_IN, true)
+            putString(Constants.USERNAME, username)
+            putString(Constants.PASSWORD, password)
         }.apply()
 
         finish()
