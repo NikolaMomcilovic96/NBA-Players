@@ -1,6 +1,6 @@
 package com.raywenderlich.nbaplayers.ui.main
 
-enum class Enum {
+enum class ListItemClick {
     Alert,
     Card
 }

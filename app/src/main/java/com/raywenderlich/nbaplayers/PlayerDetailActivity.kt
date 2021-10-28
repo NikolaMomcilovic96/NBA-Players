@@ -11,7 +11,6 @@ class PlayerDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_player_detail)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
@@ -19,16 +18,12 @@ class PlayerDetailActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        showPlayerDetails()
-    }
-
-    private fun showPlayerDetails() {
-        val playerTitle = intent.getStringExtra("title")
-        val playerDesc = intent.getStringExtra("desc")
-        val playerImage = intent.getIntExtra("image", 0)
-        val playerClub = intent.getStringExtra("club")
-        val playerHeight = intent.getStringExtra("height")
-        val playerWeight = intent.getStringExtra("weight")
+        val playerTitle = intent.getStringExtra(Constants.title)
+        val playerDesc = intent.getStringExtra(Constants.desc)
+        val playerImage = intent.getIntExtra(Constants.image, 0)
+        val playerClub = intent.getStringExtra(Constants.club)
+        val playerHeight = intent.getStringExtra(Constants.height)
+        val playerWeight = intent.getStringExtra(Constants.weight)
 
         binding.playerTitleTextView.text = playerTitle.toString()
         binding.playerDescTextView.text = playerDesc.toString()
