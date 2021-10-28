@@ -1,5 +1,6 @@
 package com.raywenderlich.nbaplayers
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
@@ -13,7 +14,6 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.view.WindowCompat
 import com.raywenderlich.nbaplayers.databinding.ActivityRegistrationBinding
-import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -26,6 +26,7 @@ class RegistrationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegistrationBinding
     private lateinit var sharedPreferences: SharedPreferences
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,9 +59,18 @@ class RegistrationActivity : AppCompatActivity() {
             val month = cal.get(Calendar.MONTH)
             val day = cal.get(Calendar.DAY_OF_MONTH)
 
+
             val dpd = DatePickerDialog(this,
-                { _, year, monthOfYear, dayOfMonth ->
-                    binding.birthdatTextView.text = "$dayOfMonth-$monthOfYear-$year"
+                { _, year, month, day ->
+                    if (day < 10 && month < 10) {
+                        binding.birthdatTextView.text = "0$day-0$month-$year"
+                    } else if (day < 10) {
+                        binding.birthdatTextView.text = "0$day-$month-$year"
+                    } else if (month < 10) {
+                        binding.birthdatTextView.text = "$day-0$month-$year"
+                    } else {
+                        binding.birthdatTextView.text = "$day-$month-$year"
+                    }
                 }, year, month, day)
             dpd.show()
         }
