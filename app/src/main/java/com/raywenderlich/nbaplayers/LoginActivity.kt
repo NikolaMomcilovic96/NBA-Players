@@ -9,7 +9,7 @@ import com.raywenderlich.nbaplayers.databinding.ActivityLoginBinding
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 import android.content.Intent
-import com.raywenderlich.nbaplayers.ui.main.users
+import com.raywenderlich.nbaplayers.ui.main.User
 
 class LoginActivity : AppCompatActivity() {
 
@@ -45,21 +45,22 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun inputCheck() {
-        for (user in users){
-            val username = binding.userNameEditText.text?.toString()
-            username?.trim()
-            val password = binding.passwordEditText.text?.toString()
-            password?.trim()
+        val user = User()
 
-            when {
-                username.isNullOrEmpty() || password.isNullOrEmpty() -> toastMessage(R.string.empty_fields)
-                username.length < 4 -> toastMessage(R.string.short_username)
-                !passwordFormatCheck(password) -> toastMessage(R.string.password_format)
-                username == user.username && password == user.password -> newActivity(
-                    username, password)
-                else -> toastMessage(R.string.login_error)
-            }
+        val username = binding.userNameEditText.text?.toString()
+        username?.trim()
+        val password = binding.passwordEditText.text?.toString()
+        password?.trim()
+
+        when {
+            username.isNullOrEmpty() || password.isNullOrEmpty() -> toastMessage(R.string.empty_fields)
+            username.length < 4 -> toastMessage(R.string.short_username)
+            !passwordFormatCheck(password) -> toastMessage(R.string.password_format)
+            username == user.username && password == user.password -> newActivity(
+                username, password)
+            else -> toastMessage(R.string.login_error)
         }
+
     }
 
     private fun toastMessage(message: Int) {

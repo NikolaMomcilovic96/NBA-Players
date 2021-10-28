@@ -1,6 +1,8 @@
 package com.raywenderlich.nbaplayers
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,14 +10,13 @@ import android.text.method.LinkMovementMethod
 import android.widget.Toast
 import androidx.core.view.WindowCompat
 import com.raywenderlich.nbaplayers.databinding.ActivityRegistrationBinding
-import com.raywenderlich.nbaplayers.ui.main.User
-import com.raywenderlich.nbaplayers.ui.main.users
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 class RegistrationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegistrationBinding
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +26,8 @@ class RegistrationActivity : AppCompatActivity() {
         binding = ActivityRegistrationBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        sharedPreferences = getSharedPreferences(Constants.sharedPref, Context.MODE_PRIVATE)
 
         val registrationButton = binding.registrationButton
         registrationButton.isEnabled = false
@@ -104,9 +107,12 @@ class RegistrationActivity : AppCompatActivity() {
             !passwordFormatCheck(password) -> toastMessage("Password format")
             !birthdayCheck(birthday) -> toastMessage("Birthday format")
             else -> {
-                val user = User(firstName, lastName, username, email, password, birthday, gender)
-                users.add(user)
-                startActivity(Intent(this, LoginActivity::class.java))
+                sharedPreferences.edit().apply {
+                    putString(Constants.USERNAME, username)
+                    putString(Constants.PASSWORD, password)
+                }.apply()
+                finish()
+                startActivity(Intent(this, MainActivity::class.java))
             }
         }
     }

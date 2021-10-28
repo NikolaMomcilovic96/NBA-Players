@@ -6,17 +6,15 @@ data class Player(
     val image: Int,
     val height: String,
     val weight: String,
-    val club: String,
+    val club: String
 )
 
 data class User(
-    val firstName: String,
-    val lastName: String,
-    val username: String,
-    val email: String,
-    val password: String,
-    val birthday: String,
-    val gender: String
+    val firstName: String = "Nikola",
+    val lastName: String = "Momcilovic",
+    val username: String = "nikola",
+    val email: String = "nikolamomca96@gmail.com",
+    val password: String = "Momcilovic96",
+    val birthday: String = "05-12-1996",
+    val gender: String = "Male"
 )
-
-val users: ArrayList<User> = arrayListOf()
