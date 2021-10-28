@@ -1,15 +1,23 @@
 package com.raywenderlich.nbaplayers
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.view.WindowCompat
 import com.raywenderlich.nbaplayers.databinding.ActivityRegistrationBinding
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -18,6 +26,7 @@ class RegistrationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegistrationBinding
     private lateinit var sharedPreferences: SharedPreferences
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -32,11 +41,29 @@ class RegistrationActivity : AppCompatActivity() {
         val registrationButton = binding.registrationButton
         registrationButton.isEnabled = false
 
+        val londonZone = ZoneId.of("Europe/London")
+        val currentDate = ZonedDateTime.now(londonZone)
+        binding.birthdatTextView.text =
+            currentDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+
         val maleCheck = binding.maleCheckBox
         val femaleCheck = binding.femaleCheckBox
         var gender = ""
         var isMale = false
         var isFemale = false
+
+        binding.datePickerButton.setOnClickListener {
+            val cal = Calendar.getInstance()
+            val year = cal.get(Calendar.YEAR)
+            val month = cal.get(Calendar.MONTH)
+            val day = cal.get(Calendar.DAY_OF_MONTH)
+
+            val dpd = DatePickerDialog(this,
+                { _, year, monthOfYear, dayOfMonth ->
+                    binding.birthdatTextView.text = "$dayOfMonth-$monthOfYear-$year"
+                }, year, month, day)
+            dpd.show()
+        }
 
         maleCheck.setOnClickListener {
             if (!isMale) {
@@ -86,7 +113,7 @@ class RegistrationActivity : AppCompatActivity() {
         val email = binding.emailInput.text.toString()
         val password = binding.passwordInput.text.toString()
         val passwordConfirm = binding.passwordConfirmationInput.text.toString()
-        val birthday = binding.birthdayInput.text.toString()
+        val birthday = binding.birthdatTextView.text.toString()
         firstName.trim()
         lastName.trim()
         username.trim()

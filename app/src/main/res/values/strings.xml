@@ -30,5 +30,6 @@
     <string name="female">Female</string>
     <string name="createAccount">Create account</string>
     <string name="backToLogin">Back to login</string>
-    <string name="createNewAccount">Create new accout</string>
+    <string name="createNewAccount">Create new account</string>
+    <string name="pickDate">Pick date</string>
 </resources>
