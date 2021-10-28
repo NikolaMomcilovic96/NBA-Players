@@ -29,4 +29,6 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="createAccount">Create account</string>
+    <string name="backToLogin">Back to login</string>
+    <string name="createNewAccount">Create new accout</string>
 </resources>
