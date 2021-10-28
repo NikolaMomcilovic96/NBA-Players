@@ -28,15 +28,19 @@ class LoginActivity : AppCompatActivity() {
 
         val isUsernameSaved = sharedPreferences.getString(Constants.USERNAME, "")
 
-        if (isUsernameSaved.isNullOrEmpty()){
+        if (isUsernameSaved.isNullOrEmpty()) {
             binding.loginButton.setOnClickListener {
                 inputCheck()
             }
-        }else{
+        } else {
             val username = sharedPreferences.getString(Constants.USERNAME, "").toString()
             val password = sharedPreferences.getString(Constants.PASSWORD, "").toString()
 
             newActivity(username, password)
+        }
+
+        binding.createAccoutButton.setOnClickListener {
+            startActivity(Intent(this, RegistrationActivity::class.java))
         }
     }
 
@@ -44,7 +48,9 @@ class LoginActivity : AppCompatActivity() {
         val user = User()
 
         val username = binding.userNameEditText.text?.toString()
+        username?.trim()
         val password = binding.passwordEditText.text?.toString()
+        password?.trim()
 
         when {
             username.isNullOrEmpty() || password.isNullOrEmpty() -> toastMessage(R.string.empty_fields)

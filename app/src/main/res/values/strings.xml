@@ -18,4 +18,15 @@
     <string name="password_format">Password needs at least 6 characters, 1 uppercase letter and 1 number</string>
     <string name="empty_fields">"Both fields are required"</string>
     <string name="logout_message">Hope to see you again</string>
+    <string name="firstName">First name</string>
+    <string name="lastName">Last name</string>
+    <string name="email">Email</string>
+    <string name="passwordConfirmation">Confirm password</string>
+    <string name="birthday">Birthday</string>
+    <string name="gender">Gender</string>
+    <string name="privacyPolicy"><a href="https://en.wikipedia.org/wiki/Privacy_policy">Privacy policy</a></string>
+    <string name="register">Register</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="createAccount">Create account</string>
 </resources>
