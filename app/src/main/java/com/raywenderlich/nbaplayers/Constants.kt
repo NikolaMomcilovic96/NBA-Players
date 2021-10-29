@@ -12,5 +12,9 @@ class Constants {
         const val clubText = "club"
         const val heightText = "height"
         const val weightText = "weight"
+        const val male = "Male"
+        const val female = "Female"
+        const val dateFormat = "dd-MM-yyyy"
+        const val timeZone = "Europe/London"
     }
 }

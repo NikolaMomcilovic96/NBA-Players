@@ -42,10 +42,10 @@ class RegistrationActivity : AppCompatActivity() {
         val registrationButton = binding.registrationButton
         registrationButton.isEnabled = false
 
-        val londonZone = ZoneId.of("Europe/London")
+        val londonZone = ZoneId.of(Constants.timeZone)
         val currentDate = ZonedDateTime.now(londonZone)
         binding.birthdatTextView.text =
-            currentDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+            currentDate.format(DateTimeFormatter.ofPattern(Constants.dateFormat))
 
         val maleCheck = binding.maleCheckBox
         val femaleCheck = binding.femaleCheckBox
@@ -58,7 +58,6 @@ class RegistrationActivity : AppCompatActivity() {
             val year = cal.get(Calendar.YEAR)
             val month = cal.get(Calendar.MONTH)
             val day = cal.get(Calendar.DAY_OF_MONTH)
-
 
             val dpd = DatePickerDialog(this,
                 { _, year, month, day ->
@@ -79,7 +78,7 @@ class RegistrationActivity : AppCompatActivity() {
             if (!isMale) {
                 isMale = true
                 isFemale = false
-                gender = "Male"
+                gender = Constants.male
                 femaleCheck.isChecked = false
                 registrationButton.isEnabled = true
             } else {
@@ -93,7 +92,7 @@ class RegistrationActivity : AppCompatActivity() {
             if (!isFemale) {
                 isFemale = true
                 isMale = false
-                gender = "Female"
+                gender = Constants.female
                 maleCheck.isChecked = false
                 registrationButton.isEnabled = true
             } else {
@@ -135,14 +134,13 @@ class RegistrationActivity : AppCompatActivity() {
         when {
             firstName.isEmpty() || lastName.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty()
                     || passwordConfirm.isEmpty() || birthday.isEmpty() || gender.isEmpty() ->
-                toastMessage("All fields are required")
-            !nameCheck(firstName) -> toastMessage("Firstname format")
-            !nameCheck(lastName) -> toastMessage("Lastname format")
-            username.length < 4 -> toastMessage("Username short")
-            !emailCheck(email) -> toastMessage("Email format")
-            password != passwordConfirm -> toastMessage("Passwords doesn't match")
-            !passwordFormatCheck(password) -> toastMessage("Password format")
-            !birthdayCheck(birthday) -> toastMessage("Birthday format")
+                toastMessage(R.string.allFieldsRequired)
+            !nameCheck(firstName) -> toastMessage(R.string.firstnameFormat)
+            !nameCheck(lastName) -> toastMessage(R.string.lastnameFormat)
+            username.length < 4 -> toastMessage(R.string.short_username)
+            !emailCheck(email) -> toastMessage(R.string.emailFormat)
+            password != passwordConfirm -> toastMessage(R.string.passwordsDontMatch)
+            !passwordFormatCheck(password) -> toastMessage(R.string.password_format)
             else -> {
                 sharedPreferences.edit().apply {
                     putString(Constants.USERNAME, username)
@@ -180,7 +178,7 @@ class RegistrationActivity : AppCompatActivity() {
         return text.matches()
     }
 
-    private fun toastMessage(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    private fun toastMessage(message: Int) {
+        Toast.makeText(this, message.toString(), Toast.LENGTH_SHORT).show()
     }
 }
