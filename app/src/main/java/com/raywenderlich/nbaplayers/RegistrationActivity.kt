@@ -159,7 +159,7 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private fun emailCheck(email: String): Boolean {
-        val regex: Pattern = Pattern.compile("^\\w+([-]?\\w+)*@\\w+([-]?\\w+)*(\\.\\w{2,3})+\$")
+        val regex: Pattern = Pattern.compile("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)\$")
         val text: Matcher = regex.matcher(email)
         return text.matches()
     }
@@ -171,14 +171,7 @@ class RegistrationActivity : AppCompatActivity() {
         return text.matches()
     }
 
-    private fun birthdayCheck(birthday: String): Boolean {
-        val regex: Pattern =
-            Pattern.compile("^(0[1-9]|[12][0-9]|3[01])[- -.](0[1-9]|1[012])[- -.](19|20)\\d\\d\$")
-        val text: Matcher = regex.matcher(birthday)
-        return text.matches()
-    }
-
     private fun toastMessage(message: Int) {
-        Toast.makeText(this, message.toString(), Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
