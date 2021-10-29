@@ -166,7 +166,7 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun passwordFormatCheck(pass: String): Boolean {
         val regex: Pattern =
-            Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}${'$'}")
+            Pattern.compile("^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\\d]){1,})(?=(.*[\\W]){1,})(?!.*\\s).{8,}\$")
         val text: Matcher = regex.matcher(pass)
         return text.matches()
     }
