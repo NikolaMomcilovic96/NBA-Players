@@ -53,6 +53,20 @@ class RegistrationActivity : AppCompatActivity() {
         var isMale = false
         var isFemale = false
 
+        fun checkFields(){
+            val firstName = binding.firstNameInput.text.toString()
+            val lastName = binding.lastNameInput.text.toString()
+            val username = binding.usernameInput.text.toString()
+            val email = binding.emailInput.text.toString()
+            val password = binding.passwordInput.text.toString()
+            val passwordConfirm = binding.passwordConfirmationInput.text.toString()
+            if (firstName.isEmpty() || lastName.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordConfirm.isEmpty() || gender.isEmpty()) {
+                registrationButton.isEnabled = false
+            } else {
+                registrationButton.isEnabled = true
+            }
+        }
+
         binding.datePickerButton.setOnClickListener {
             val cal = Calendar.getInstance()
             val year = cal.get(Calendar.YEAR)
@@ -72,6 +86,7 @@ class RegistrationActivity : AppCompatActivity() {
                     }
                 }, year, month, day)
             dpd.show()
+            checkFields()
         }
 
         maleCheck.setOnClickListener {
@@ -80,11 +95,12 @@ class RegistrationActivity : AppCompatActivity() {
                 isFemale = false
                 gender = Constants.male
                 femaleCheck.isChecked = false
-                registrationButton.isEnabled = true
+                checkFields()
             } else {
                 isMale = false
                 gender = ""
                 maleCheck.isChecked = false
+                registrationButton.isEnabled=false
             }
         }
 
@@ -94,11 +110,12 @@ class RegistrationActivity : AppCompatActivity() {
                 isMale = false
                 gender = Constants.female
                 maleCheck.isChecked = false
-                registrationButton.isEnabled = true
+                checkFields()
             } else {
                 isFemale = false
                 gender = ""
                 femaleCheck.isChecked = false
+                registrationButton.isEnabled=false
             }
         }
 
@@ -144,7 +161,6 @@ class RegistrationActivity : AppCompatActivity() {
             else -> {
                 sharedPreferences.edit().apply {
                     putString(Constants.USERNAME, username)
-                    putString(Constants.PASSWORD, password)
                 }.apply()
                 finish()
                 startActivity(Intent(this, MainActivity::class.java))
@@ -159,14 +175,15 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private fun emailCheck(email: String): Boolean {
-        val regex: Pattern = Pattern.compile("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)\$")
+        val regex: Pattern =
+            Pattern.compile("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)\$")
         val text: Matcher = regex.matcher(email)
         return text.matches()
     }
 
     private fun passwordFormatCheck(pass: String): Boolean {
         val regex: Pattern =
-            Pattern.compile("^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\\d]){1,})(?=(.*[\\W]){1,})(?!.*\\s).{8,}\$")
+            Pattern.compile("^(?=.*?[A-Z])(?=(.*[a-z]))(?=(.*[\\d]))(?=(.*[\\W]))(?!.*\\s).{8,}\$")
         val text: Matcher = regex.matcher(pass)
         return text.matches()
     }

@@ -33,7 +33,7 @@
     <string name="createNewAccount">Create new account</string>
     <string name="pickDate">Pick date</string>
     <string name="allFieldsRequired">All fields are required</string>
-    <string name="firstnameFormat">First name can only use letters</string>
+    <string name="firstnameFormat">First name can only use letters, and needs 1 uppercase letter</string>
     <string name="lastnameFormat">Last name can only use letters</string>
     <string name="passwordsDontMatch">Passwords are not matching</string>
     <string name="emailFormat">Wrong email format</string>
