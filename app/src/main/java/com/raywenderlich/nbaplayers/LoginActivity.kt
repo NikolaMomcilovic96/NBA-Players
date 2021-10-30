@@ -67,7 +67,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun passwordFormatCheck(pass: String): Boolean {
         val regex: Pattern =
-            Pattern.compile("^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\\d]){1,})(?=(.*[\\W]){1,})(?!.*\\s).{8,}\$")
+            Pattern.compile("^(?=.*?[A-Z])(?=(.*[a-z]))(?=(.*[\\d]))(?=(.*[\\W]))(?!.*\\s).{8,}\$")
         val text: Matcher = regex.matcher(pass)
         return text.matches()
     }

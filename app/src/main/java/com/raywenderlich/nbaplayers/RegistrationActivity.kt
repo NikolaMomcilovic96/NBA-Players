@@ -9,13 +9,10 @@ import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextWatcher
 import android.text.method.LinkMovementMethod
-import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.view.WindowCompat
-import androidx.core.widget.addTextChangedListener
 import com.raywenderlich.nbaplayers.databinding.ActivityRegistrationBinding
 import java.time.ZoneId
 import java.time.ZonedDateTime
