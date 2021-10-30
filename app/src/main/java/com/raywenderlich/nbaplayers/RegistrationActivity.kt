@@ -13,6 +13,7 @@ import android.text.method.LinkMovementMethod
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.view.WindowCompat
+import androidx.core.widget.doAfterTextChanged
 import com.raywenderlich.nbaplayers.databinding.ActivityRegistrationBinding
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -53,19 +54,28 @@ class RegistrationActivity : AppCompatActivity() {
         var isMale = false
         var isFemale = false
 
-        fun checkFields() {
-            val firstName = binding.firstNameInput.text.toString()
-            val lastName = binding.lastNameInput.text.toString()
-            val username = binding.usernameInput.text.toString()
-            val email = binding.emailInput.text.toString()
-            val password = binding.passwordInput.text.toString()
-            val passwordConfirm = binding.passwordConfirmationInput.text.toString()
-            if (firstName.isEmpty() || lastName.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordConfirm.isEmpty() || gender.isEmpty()) {
-                registrationButton.isEnabled = false
-            } else {
-                registrationButton.isEnabled = true
-            }
+        binding.firstNameInput.doAfterTextChanged {
+            enableButton()
         }
+        binding.lastNameInput.doAfterTextChanged {
+            enableButton()
+        }
+        binding.usernameInput.doAfterTextChanged {
+            enableButton()
+        }
+        binding.emailInput.doAfterTextChanged {
+            enableButton()
+        }
+        binding.passwordInput.doAfterTextChanged {
+            enableButton()
+        }
+        binding.passwordConfirmationInput.doAfterTextChanged {
+            enableButton()
+        }
+        binding.firstNameInput.doAfterTextChanged {
+            enableButton()
+        }
+
 
         binding.datePickerButton.setOnClickListener {
             val cal = Calendar.getInstance()
@@ -75,18 +85,15 @@ class RegistrationActivity : AppCompatActivity() {
 
             val dpd = DatePickerDialog(this,
                 { _, year, month, day ->
-                    if (day < 10 && month < 10) {
-                        binding.birthdatTextView.text = "0$day-0$month-$year"
-                    } else if (day < 10) {
-                        binding.birthdatTextView.text = "0$day-$month-$year"
-                    } else if (month < 10) {
-                        binding.birthdatTextView.text = "$day-0$month-$year"
-                    } else {
-                        binding.birthdatTextView.text = "$day-$month-$year"
+                    when {
+                        day < 10 && month < 10 -> binding.birthdatTextView.text =
+                            "0$day-0$month-$year"
+                        day < 10 -> binding.birthdatTextView.text = "0$day-$month-$year"
+                        month < 10 -> binding.birthdatTextView.text = "$day-0$month-$year"
+                        else -> binding.birthdatTextView.text = "$day-$month-$year"
                     }
                 }, year, month, day)
             dpd.show()
-            checkFields()
         }
 
         maleCheck.setOnClickListener {
@@ -95,7 +102,7 @@ class RegistrationActivity : AppCompatActivity() {
                 isFemale = false
                 gender = Constants.male
                 femaleCheck.isChecked = false
-                checkFields()
+                enableButton()
             } else {
                 isMale = false
                 gender = ""
@@ -110,7 +117,7 @@ class RegistrationActivity : AppCompatActivity() {
                 isMale = false
                 gender = Constants.female
                 maleCheck.isChecked = false
-                checkFields()
+                enableButton()
             } else {
                 isFemale = false
                 gender = ""
@@ -152,7 +159,6 @@ class RegistrationActivity : AppCompatActivity() {
             password != passwordConfirm -> toastMessage(R.string.passwordsDontMatch)
             !passwordFormatCheck(password) -> toastMessage(R.string.password_format)
             else -> {
-                Toast.makeText(this, firstName, Toast.LENGTH_SHORT).show()
                 val editor = sharedPreferences.edit()
                 editor.putString(Constants.USERNAME, username)
                 editor.apply()
@@ -184,5 +190,27 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun toastMessage(message: Int) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun enableButton() {
+        val firstName = binding.firstNameInput.text.toString()
+        val lastName = binding.lastNameInput.text.toString()
+        val username = binding.usernameInput.text.toString()
+        val email = binding.emailInput.text.toString()
+        val password = binding.passwordInput.text.toString()
+        val passwordConfirm = binding.passwordConfirmationInput.text.toString()
+        val gender: String
+
+        when {
+            binding.maleCheckBox.isChecked -> gender = "Male"
+            binding.femaleCheckBox.isChecked -> gender = "Female"
+            else -> gender = ""
+        }
+
+        if (firstName.isEmpty() || lastName.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordConfirm.isEmpty() || gender.isEmpty()) {
+            binding.registrationButton.isEnabled = false
+        } else {
+            binding.registrationButton.isEnabled = true
+        }
     }
 }
