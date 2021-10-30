@@ -9,10 +9,13 @@ import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextWatcher
 import android.text.method.LinkMovementMethod
+import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.view.WindowCompat
+import androidx.core.widget.addTextChangedListener
 import com.raywenderlich.nbaplayers.databinding.ActivityRegistrationBinding
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -53,7 +56,7 @@ class RegistrationActivity : AppCompatActivity() {
         var isMale = false
         var isFemale = false
 
-        fun checkFields(){
+        fun checkFields() {
             val firstName = binding.firstNameInput.text.toString()
             val lastName = binding.lastNameInput.text.toString()
             val username = binding.usernameInput.text.toString()
@@ -100,7 +103,7 @@ class RegistrationActivity : AppCompatActivity() {
                 isMale = false
                 gender = ""
                 maleCheck.isChecked = false
-                registrationButton.isEnabled=false
+                registrationButton.isEnabled = false
             }
         }
 
@@ -115,7 +118,7 @@ class RegistrationActivity : AppCompatActivity() {
                 isFemale = false
                 gender = ""
                 femaleCheck.isChecked = false
-                registrationButton.isEnabled=false
+                registrationButton.isEnabled = false
             }
         }
 
@@ -133,20 +136,13 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private fun inputCheck(gender: String) {
-        val firstName = binding.firstNameInput.text.toString()
-        val lastName = binding.lastNameInput.text.toString()
-        val username = binding.usernameInput.text.toString()
-        val email = binding.emailInput.text.toString()
-        val password = binding.passwordInput.text.toString()
-        val passwordConfirm = binding.passwordConfirmationInput.text.toString()
-        val birthday = binding.birthdatTextView.text.toString()
-        firstName.trim()
-        lastName.trim()
-        username.trim()
-        email.trim()
-        password.trim()
-        passwordConfirm.trim()
-        birthday.trim()
+        val firstName = binding.firstNameInput.text?.trim().toString()
+        val lastName = binding.lastNameInput.text?.trim().toString()
+        val username = binding.usernameInput.text?.trim().toString()
+        val email = binding.emailInput.text?.trim().toString()
+        val password = binding.passwordInput.text?.trim().toString()
+        val passwordConfirm = binding.passwordConfirmationInput.text?.trim().toString()
+        val birthday = binding.birthdatTextView.text?.trim().toString()
 
         when {
             firstName.isEmpty() || lastName.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty()
@@ -159,9 +155,10 @@ class RegistrationActivity : AppCompatActivity() {
             password != passwordConfirm -> toastMessage(R.string.passwordsDontMatch)
             !passwordFormatCheck(password) -> toastMessage(R.string.password_format)
             else -> {
-                sharedPreferences.edit().apply {
-                    putString(Constants.USERNAME, username)
-                }.apply()
+                Toast.makeText(this, firstName, Toast.LENGTH_SHORT).show()
+                val editor = sharedPreferences.edit()
+                editor.putString(Constants.USERNAME, username)
+                editor.apply()
                 finish()
                 startActivity(Intent(this, MainActivity::class.java))
             }

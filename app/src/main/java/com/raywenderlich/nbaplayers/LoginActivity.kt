@@ -47,13 +47,11 @@ class LoginActivity : AppCompatActivity() {
     private fun inputCheck() {
         val user = User()
 
-        val username = binding.userNameEditText.text?.toString()
-        username?.trim()
-        val password = binding.passwordEditText.text?.toString()
-        password?.trim()
+        val username = binding.userNameEditText.text?.trim().toString()
+        val password = binding.passwordEditText.text?.trim().toString()
 
         when {
-            username.isNullOrEmpty() || password.isNullOrEmpty() -> toastMessage(R.string.empty_fields)
+            username.isEmpty() || password.isEmpty() -> toastMessage(R.string.empty_fields)
             username.length < 4 -> toastMessage(R.string.short_username)
             !passwordFormatCheck(password) -> toastMessage(R.string.password_format)
             username == user.username && password == user.password -> newActivity(
