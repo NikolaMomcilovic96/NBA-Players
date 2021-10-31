@@ -58,7 +58,6 @@ class LoginActivity : AppCompatActivity() {
                 username, password)
             else -> toastMessage(R.string.login_error)
         }
-
     }
 
     private fun toastMessage(message: Int) {

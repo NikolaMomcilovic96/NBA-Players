@@ -9,10 +9,14 @@ import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
+import android.text.InputType.*
 import android.text.method.LinkMovementMethod
+import android.view.MotionEvent
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.view.WindowCompat
+import androidx.core.view.plusAssign
 import androidx.core.widget.doAfterTextChanged
 import com.raywenderlich.nbaplayers.databinding.ActivityRegistrationBinding
 import java.time.ZoneId
@@ -27,7 +31,7 @@ class RegistrationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegistrationBinding
     private lateinit var sharedPreferences: SharedPreferences
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +49,7 @@ class RegistrationActivity : AppCompatActivity() {
 
         val londonZone = ZoneId.of(Constants.timeZone)
         val currentDate = ZonedDateTime.now(londonZone)
-        binding.birthdatTextView.text =
+        binding.birthdayTextView.text =
             currentDate.format(DateTimeFormatter.ofPattern(Constants.dateFormat))
 
         val maleCheck = binding.maleCheckBox
@@ -86,11 +90,11 @@ class RegistrationActivity : AppCompatActivity() {
             val dpd = DatePickerDialog(this,
                 { _, year, month, day ->
                     when {
-                        day < 10 && month < 10 -> binding.birthdatTextView.text =
+                        day < 10 && month < 10 -> binding.birthdayTextView.text =
                             "0$day-0$month-$year"
-                        day < 10 -> binding.birthdatTextView.text = "0$day-$month-$year"
-                        month < 10 -> binding.birthdatTextView.text = "$day-0$month-$year"
-                        else -> binding.birthdatTextView.text = "$day-$month-$year"
+                        day < 10 -> binding.birthdayTextView.text = "0$day-$month-$year"
+                        month < 10 -> binding.birthdayTextView.text = "$day-0$month-$year"
+                        else -> binding.birthdayTextView.text = "$day-$month-$year"
                     }
                 }, year, month, day)
             dpd.show()
@@ -137,6 +141,36 @@ class RegistrationActivity : AppCompatActivity() {
         binding.backToLoginButton.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
         }
+
+        binding.revealPasswordButton.setOnTouchListener { _, event ->
+            val action = event.action
+            val passwordField = binding.passwordInput
+            when (action) {
+                MotionEvent.ACTION_DOWN -> {
+                    passwordField.inputType = TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                }
+                MotionEvent.ACTION_UP -> {
+                    passwordField.inputType =
+                        TYPE_CLASS_TEXT or TYPE_TEXT_VARIATION_PASSWORD
+                }
+            }
+            true
+        }
+
+        binding.revealConfirmationButton.setOnTouchListener { _, event ->
+            val action = event.action
+            val passwordField = binding.passwordConfirmationInput
+            when (action) {
+                MotionEvent.ACTION_DOWN -> {
+                    passwordField.inputType = TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                }
+                MotionEvent.ACTION_UP -> {
+                    passwordField.inputType =
+                        TYPE_CLASS_TEXT or TYPE_TEXT_VARIATION_PASSWORD
+                }
+            }
+            true
+        }
     }
 
     private fun inputCheck(gender: String) {
@@ -146,7 +180,7 @@ class RegistrationActivity : AppCompatActivity() {
         val email = binding.emailInput.text?.trim().toString()
         val password = binding.passwordInput.text?.trim().toString()
         val passwordConfirm = binding.passwordConfirmationInput.text?.trim().toString()
-        val birthday = binding.birthdatTextView.text?.trim().toString()
+        val birthday = binding.birthdayTextView.text?.trim().toString()
 
         when {
             firstName.isEmpty() || lastName.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty()
