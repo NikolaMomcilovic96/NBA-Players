@@ -9,14 +9,12 @@ import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.InputType
 import android.text.InputType.*
 import android.text.method.LinkMovementMethod
 import android.view.MotionEvent
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.view.WindowCompat
-import androidx.core.view.plusAssign
 import androidx.core.widget.doAfterTextChanged
 import com.raywenderlich.nbaplayers.databinding.ActivityRegistrationBinding
 import java.time.ZoneId
@@ -88,13 +86,19 @@ class RegistrationActivity : AppCompatActivity() {
             val day = cal.get(Calendar.DAY_OF_MONTH)
 
             val dpd = DatePickerDialog(this,
-                { _, year, month, day ->
+                { _, pickedYear, pickedMonth, pickedDay ->
                     when {
                         day < 10 && month < 10 -> binding.birthdayTextView.text =
                             "0$day-0$month-$year"
-                        day < 10 -> binding.birthdayTextView.text = "0$day-$month-$year"
-                        month < 10 -> binding.birthdayTextView.text = "$day-0$month-$year"
-                        else -> binding.birthdayTextView.text = "$day-$month-$year"
+                        day < 10 -> binding.birthdayTextView.text =
+                            "0$pickedDay-$pickedMonth-$pickedYear"
+                        month < 10 -> binding.birthdayTextView.text =
+                            "$pickedDay-0$pickedMonth-$pickedYear"
+                        else -> binding.birthdayTextView.text =
+                            "$pickedDay-$pickedMonth-$pickedYear"
+                    }
+                    if (year - pickedYear < 18) {
+                        toastMessage(R.string.tooYoung)
                     }
                 }, year, month, day)
             dpd.show()

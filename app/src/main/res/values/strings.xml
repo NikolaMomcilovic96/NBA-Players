@@ -37,4 +37,5 @@
     <string name="lastnameFormat">Last name can only use letters</string>
     <string name="passwordsDontMatch">Passwords are not matching</string>
     <string name="emailFormat">Wrong email format</string>
+    <string name="tooYoung">Only people older than 18 can register</string>
 </resources>
