@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(view)
 
         sharedPreferences =
-            getSharedPreferences(Constants.sharedPref, Context.MODE_PRIVATE)
+            getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE)
 
         val isUsernameSaved = sharedPreferences.getString(Constants.USERNAME, "")
 

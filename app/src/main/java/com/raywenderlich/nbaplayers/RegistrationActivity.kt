@@ -40,7 +40,7 @@ class RegistrationActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        sharedPreferences = getSharedPreferences(Constants.sharedPref, Context.MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE)
 
         val registrationButton = binding.registrationButton
         registrationButton.isEnabled = false
@@ -48,7 +48,7 @@ class RegistrationActivity : AppCompatActivity() {
         val londonZone = ZoneId.of(Constants.timeZone)
         val currentDate = ZonedDateTime.now(londonZone)
         binding.birthdayTextView.text =
-            currentDate.format(DateTimeFormatter.ofPattern(Constants.dateFormat))
+            currentDate.format(DateTimeFormatter.ofPattern(Constants.DATE_FORMAT))
 
         val maleCheck = binding.maleCheckBox
         val femaleCheck = binding.femaleCheckBox
@@ -108,7 +108,7 @@ class RegistrationActivity : AppCompatActivity() {
             if (!isMale) {
                 isMale = true
                 isFemale = false
-                gender = Constants.male
+                gender = Constants.MALE
                 femaleCheck.isChecked = false
                 enableButton()
             } else {
@@ -123,7 +123,7 @@ class RegistrationActivity : AppCompatActivity() {
             if (!isFemale) {
                 isFemale = true
                 isMale = false
-                gender = Constants.female
+                gender = Constants.FEMALE
                 maleCheck.isChecked = false
                 enableButton()
             } else {
