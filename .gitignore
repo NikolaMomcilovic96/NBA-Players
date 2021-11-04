@@ -217,6 +217,7 @@ obj/
 .idea/sqlDataSources.xml
 .idea/dynamic.xml
 .idea/uiDesigner.xml
+.idea/inspectionProfiles/Project_Default.xml
 
 # OS-specific files
 .DS_Store
