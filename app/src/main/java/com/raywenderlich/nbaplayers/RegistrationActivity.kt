@@ -205,7 +205,7 @@ class RegistrationActivity : AppCompatActivity() {
 
     private fun birthdayCheck(birthday: String): Boolean {
         val pickedYear = birthday.takeLast(4).toInt()
-        val currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        val currentYear = Calendar.getInstance().get(Calendar.YEAR)
         if (currentYear - pickedYear < 18) {
             return false
         } else {
