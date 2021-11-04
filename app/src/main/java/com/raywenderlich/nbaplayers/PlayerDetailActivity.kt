@@ -25,11 +25,11 @@ class PlayerDetailActivity : AppCompatActivity() {
         val playerHeight = intent.getStringExtra(Constants.HEIGHT_TEXT)
         val playerWeight = intent.getStringExtra(Constants.WEIGHT_TEXT)
 
-        binding.playerTitleTextView.text = playerTitle.toString()
-        binding.playerDescTextView.text = playerDesc.toString()
+        binding.playerTitleTextView.text = playerTitle
+        binding.playerDescTextView.text = playerDesc
         binding.playerImageView.setImageResource(playerImage)
-        binding.playerClubTextView.text = playerClub.toString()
-        binding.playerHeightTextView.text = playerHeight.toString()
-        binding.playerWeightTextView.text = playerWeight.toString()
+        binding.playerClubTextView.text = playerClub
+        binding.playerHeightTextView.text = playerHeight
+        binding.playerWeightTextView.text = playerWeight
     }
 }
