@@ -52,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
 
         when {
             username.isEmpty() || password.isEmpty() -> toastMessage(R.string.empty_fields)
-            username.length < 4 -> toastMessage(R.string.short_username)
+            !usernameCheck(username) -> toastMessage(R.string.username_format)
             !passwordFormatCheck(password) -> toastMessage(R.string.password_format)
             username == user.username && password == user.password -> startMainActivity(
                 username, password)
@@ -62,6 +62,12 @@ class LoginActivity : AppCompatActivity() {
 
     private fun toastMessage(message: Int) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun usernameCheck(username: String):Boolean{
+        val regex: Pattern = Pattern.compile("[A-Za-z0-9]{4,}")
+        val text: Matcher = regex.matcher(username)
+        return text.matches()
     }
 
     private fun passwordFormatCheck(pass: String): Boolean {

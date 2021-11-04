@@ -190,7 +190,7 @@ class RegistrationActivity : AppCompatActivity() {
                 toastMessage(R.string.allFieldsRequired)
             !nameCheck(firstName) -> toastMessage(R.string.firstnameFormat)
             !nameCheck(lastName) -> toastMessage(R.string.lastnameFormat)
-            username.length < 4 -> toastMessage(R.string.short_username)
+            !usernameCheck(username) -> toastMessage(R.string.username_format)
             !emailCheck(email) -> toastMessage(R.string.emailFormat)
             password != passwordConfirm -> toastMessage(R.string.passwordsDontMatch)
             !passwordFormatCheck(password) -> toastMessage(R.string.password_format)
@@ -205,8 +205,14 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private fun nameCheck(name: String): Boolean {
-        val regex: Pattern = Pattern.compile("[A-Z][a-z]*")
+        val regex: Pattern = Pattern.compile("[A-Za-z]*")
         val text: Matcher = regex.matcher(name)
+        return text.matches()
+    }
+
+    private fun usernameCheck(username: String):Boolean{
+        val regex: Pattern = Pattern.compile("[A-Za-z0-9]{4,}")
+        val text: Matcher = regex.matcher(username)
         return text.matches()
     }
 

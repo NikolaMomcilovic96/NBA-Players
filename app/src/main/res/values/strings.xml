@@ -12,7 +12,7 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login_error">Wrong username or password</string>
-    <string name="short_username">Username needs at least 4 characters</string>
+    <string name="username_format">Username needs at least 4 characters, only letters and numbers</string>
     <string name="wrong_username">Wrong username</string>
     <string name="wrong_password">Wrong password</string>
     <string name="password_format">Password needs at least 6 characters, 1 uppercase letter, 1 number nad 1 special character</string>
