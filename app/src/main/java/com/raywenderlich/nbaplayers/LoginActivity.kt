@@ -36,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
             val username = sharedPreferences.getString(Constants.USERNAME, "").toString()
             val password = sharedPreferences.getString(Constants.PASSWORD, "").toString()
 
-            newActivity(username, password)
+            startMainActivity(username, password)
         }
 
         binding.createAccoutButton.setOnClickListener {
@@ -54,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
             username.isEmpty() || password.isEmpty() -> toastMessage(R.string.empty_fields)
             username.length < 4 -> toastMessage(R.string.short_username)
             !passwordFormatCheck(password) -> toastMessage(R.string.password_format)
-            username == user.username && password == user.password -> newActivity(
+            username == user.username && password == user.password -> startMainActivity(
                 username, password)
             else -> toastMessage(R.string.login_error)
         }
@@ -71,7 +71,7 @@ class LoginActivity : AppCompatActivity() {
         return text.matches()
     }
 
-    private fun newActivity(username: String, password: String) {
+    private fun startMainActivity(username: String, password: String) {
         sharedPreferences.edit().apply {
             putString(Constants.USERNAME, username)
             putString(Constants.PASSWORD, password)

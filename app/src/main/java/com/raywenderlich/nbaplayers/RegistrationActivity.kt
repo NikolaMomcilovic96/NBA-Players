@@ -57,25 +57,25 @@ class RegistrationActivity : AppCompatActivity() {
         var isFemale = false
 
         binding.firstNameInput.doAfterTextChanged {
-            enableButton()
+            enableRegistrationButton()
         }
         binding.lastNameInput.doAfterTextChanged {
-            enableButton()
+            enableRegistrationButton()
         }
         binding.usernameInput.doAfterTextChanged {
-            enableButton()
+            enableRegistrationButton()
         }
         binding.emailInput.doAfterTextChanged {
-            enableButton()
+            enableRegistrationButton()
         }
         binding.passwordInput.doAfterTextChanged {
-            enableButton()
+            enableRegistrationButton()
         }
         binding.passwordConfirmationInput.doAfterTextChanged {
-            enableButton()
+            enableRegistrationButton()
         }
         binding.firstNameInput.doAfterTextChanged {
-            enableButton()
+            enableRegistrationButton()
         }
 
 
@@ -110,7 +110,7 @@ class RegistrationActivity : AppCompatActivity() {
                 isFemale = false
                 gender = Constants.MALE
                 femaleCheck.isChecked = false
-                enableButton()
+                enableRegistrationButton()
             } else {
                 isMale = false
                 gender = ""
@@ -125,7 +125,7 @@ class RegistrationActivity : AppCompatActivity() {
                 isMale = false
                 gender = Constants.FEMALE
                 maleCheck.isChecked = false
-                enableButton()
+                enableRegistrationButton()
             } else {
                 isFemale = false
                 gender = ""
@@ -230,7 +230,7 @@ class RegistrationActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun enableButton() {
+    private fun enableRegistrationButton() {
         val firstName = binding.firstNameInput.text.toString()
         val lastName = binding.lastNameInput.text.toString()
         val username = binding.usernameInput.text.toString()
