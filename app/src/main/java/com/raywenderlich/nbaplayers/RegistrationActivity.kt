@@ -1,24 +1,19 @@
 package com.raywenderlich.nbaplayers
 
-import android.annotation.SuppressLint
 import android.app.DatePickerDialog
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType.*
 import android.text.method.LinkMovementMethod
 import android.view.MotionEvent
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.core.view.WindowCompat
 import androidx.core.widget.doAfterTextChanged
 import com.raywenderlich.nbaplayers.databinding.ActivityRegistrationBinding
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
+import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -28,8 +23,6 @@ class RegistrationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegistrationBinding
     private lateinit var sharedPreferences: SharedPreferences
 
-    @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -39,14 +32,14 @@ class RegistrationActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        sharedPreferences = getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences(Constants.SHARED_PREF, MODE_PRIVATE)
 
         val registrationButton = binding.registrationButton
         registrationButton.isEnabled = false
 
-        val currentDate = ZonedDateTime.now()
-        binding.birthdayTextView.text =
-            currentDate.format(DateTimeFormatter.ofPattern(Constants.DATE_FORMAT))
+        val dateFormat = SimpleDateFormat(Constants.DATE_FORMAT)
+        val date = dateFormat.format(Date())
+        binding.birthdayTextView.text = date
 
         val maleCheck = binding.maleCheckBox
         val femaleCheck = binding.femaleCheckBox
@@ -76,29 +69,34 @@ class RegistrationActivity : AppCompatActivity() {
             enableRegistrationButton()
         }
 
-
         binding.datePickerButton.setOnClickListener {
             val cal = Calendar.getInstance()
             val year = cal.get(Calendar.YEAR)
             val month = cal.get(Calendar.MONTH)
             val day = cal.get(Calendar.DAY_OF_MONTH)
 
-            val dpd = DatePickerDialog(this,
+            val dpd = DatePickerDialog(
+                this,
                 { _, pickedYear, pickedMonth, pickedDay ->
+                    val bothLessThen10 = "0$pickedDay-0$pickedMonth-$pickedYear"
+                    val dayLessThen10 = "0$pickedDay-$pickedMonth-$pickedYear"
+                    val monthLessThen10 = "$pickedDay-0$pickedMonth-$pickedYear"
+                    val noneLessThen10 = "$pickedDay-$pickedMonth-$pickedYear"
                     when {
-                        day < 10 && month < 10 -> binding.birthdayTextView.text =
-                            "0$day-0$month-$year"
-                        day < 10 -> binding.birthdayTextView.text =
-                            "0$pickedDay-$pickedMonth-$pickedYear"
-                        month < 10 -> binding.birthdayTextView.text =
-                            "$pickedDay-0$pickedMonth-$pickedYear"
+                        pickedDay < 10 && pickedMonth < 10 -> binding.birthdayTextView.text =
+                            bothLessThen10
+                        pickedDay < 10 -> binding.birthdayTextView.text =
+                            dayLessThen10
+                        pickedMonth < 10 -> binding.birthdayTextView.text =
+                            monthLessThen10
                         else -> binding.birthdayTextView.text =
-                            "$pickedDay-$pickedMonth-$pickedYear"
+                            noneLessThen10
                     }
                     if (year - pickedYear < 18) {
                         toastMessage(R.string.tooYoung)
                     }
-                }, year, month, day)
+                }, year, month, day
+            )
             dpd.show()
         }
 
@@ -210,7 +208,7 @@ class RegistrationActivity : AppCompatActivity() {
         return text.matches()
     }
 
-    private fun usernameCheck(username: String):Boolean{
+    private fun usernameCheck(username: String): Boolean {
         val regex: Pattern = Pattern.compile("[A-Za-z0-9]{4,}")
         val text: Matcher = regex.matcher(username)
         return text.matches()
@@ -244,8 +242,8 @@ class RegistrationActivity : AppCompatActivity() {
         val gender: String
 
         when {
-            binding.maleCheckBox.isChecked -> gender = "Male"
-            binding.femaleCheckBox.isChecked -> gender = "Female"
+            binding.maleCheckBox.isChecked -> gender = Constants.MALE
+            binding.femaleCheckBox.isChecked -> gender = Constants.FEMALE
             else -> gender = ""
         }
 
