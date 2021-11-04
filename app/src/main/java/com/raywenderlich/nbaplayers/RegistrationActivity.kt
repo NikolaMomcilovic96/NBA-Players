@@ -41,12 +41,6 @@ class RegistrationActivity : AppCompatActivity() {
         val date = dateFormat.format(Date())
         binding.birthdayTextView.text = date
 
-        val maleCheck = binding.maleCheckBox
-        val femaleCheck = binding.femaleCheckBox
-        var gender = ""
-        var isMale = false
-        var isFemale = false
-
         binding.firstNameInput.doAfterTextChanged {
             enableRegistrationButton()
         }
@@ -92,46 +86,26 @@ class RegistrationActivity : AppCompatActivity() {
                         else -> binding.birthdayTextView.text =
                             noneLessThen10
                     }
-                    if (year - pickedYear < 18) {
-                        toastMessage(R.string.tooYoung)
-                    }
                 }, year, month, day
             )
             dpd.show()
         }
 
-        maleCheck.setOnClickListener {
-            if (!isMale) {
-                isMale = true
-                isFemale = false
-                gender = Constants.MALE
-                femaleCheck.isChecked = false
-                enableRegistrationButton()
-            } else {
-                isMale = false
-                gender = ""
-                maleCheck.isChecked = false
-                registrationButton.isEnabled = false
-            }
+        val maleCheck = binding.maleCheckBox
+        val femaleCheck = binding.femaleCheckBox
+
+        maleCheck.setOnCheckedChangeListener { _, isChecked ->
+            femaleCheck.isChecked = !isChecked
+            enableRegistrationButton()
         }
 
-        femaleCheck.setOnClickListener {
-            if (!isFemale) {
-                isFemale = true
-                isMale = false
-                gender = Constants.FEMALE
-                maleCheck.isChecked = false
-                enableRegistrationButton()
-            } else {
-                isFemale = false
-                gender = ""
-                femaleCheck.isChecked = false
-                registrationButton.isEnabled = false
-            }
+        femaleCheck.setOnCheckedChangeListener { _, isChecked ->
+            maleCheck.isChecked = !isChecked
+            enableRegistrationButton()
         }
 
         registrationButton.setOnClickListener {
-            inputCheck(gender)
+            inputCheck()
         }
 
         val wikipediaLink = binding.privacyPolicyLink
@@ -173,7 +147,7 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 
-    private fun inputCheck(gender: String) {
+    private fun inputCheck() {
         val firstName = binding.firstNameInput.text?.trim().toString()
         val lastName = binding.lastNameInput.text?.trim().toString()
         val username = binding.usernameInput.text?.trim().toString()
@@ -184,7 +158,7 @@ class RegistrationActivity : AppCompatActivity() {
 
         when {
             firstName.isEmpty() || lastName.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty()
-                    || passwordConfirm.isEmpty() || birthday.isEmpty() || gender.isEmpty() ->
+                    || passwordConfirm.isEmpty() || birthday.isEmpty() ->
                 toastMessage(R.string.allFieldsRequired)
             !nameCheck(firstName) -> toastMessage(R.string.firstnameFormat)
             !nameCheck(lastName) -> toastMessage(R.string.lastnameFormat)
@@ -192,6 +166,7 @@ class RegistrationActivity : AppCompatActivity() {
             !emailCheck(email) -> toastMessage(R.string.emailFormat)
             password != passwordConfirm -> toastMessage(R.string.passwordsDontMatch)
             !passwordFormatCheck(password) -> toastMessage(R.string.password_format)
+            !birthdayCheck(birthday)->toastMessage(R.string.tooYoung)
             else -> {
                 val editor = sharedPreferences.edit()
                 editor.putString(Constants.USERNAME, username)
@@ -228,6 +203,15 @@ class RegistrationActivity : AppCompatActivity() {
         return text.matches()
     }
 
+    private fun birthdayCheck(birthday: String): Boolean {
+        val year = birthday.takeLast(4).toInt()
+        if (2021 - year < 18) {
+            return false
+        } else {
+            return true
+        }
+    }
+
     private fun toastMessage(message: Int) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
@@ -239,12 +223,11 @@ class RegistrationActivity : AppCompatActivity() {
         val email = binding.emailInput.text.toString()
         val password = binding.passwordInput.text.toString()
         val passwordConfirm = binding.passwordConfirmationInput.text.toString()
-        val gender: String
+        var gender = ""
 
         when {
             binding.maleCheckBox.isChecked -> gender = Constants.MALE
             binding.femaleCheckBox.isChecked -> gender = Constants.FEMALE
-            else -> gender = ""
         }
 
         if (firstName.isEmpty() || lastName.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordConfirm.isEmpty() || gender.isEmpty()) {
