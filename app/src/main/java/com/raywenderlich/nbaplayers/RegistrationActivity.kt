@@ -17,7 +17,6 @@ import androidx.annotation.RequiresApi
 import androidx.core.view.WindowCompat
 import androidx.core.widget.doAfterTextChanged
 import com.raywenderlich.nbaplayers.databinding.ActivityRegistrationBinding
-import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -45,8 +44,7 @@ class RegistrationActivity : AppCompatActivity() {
         val registrationButton = binding.registrationButton
         registrationButton.isEnabled = false
 
-        val londonZone = ZoneId.of(Constants.timeZone)
-        val currentDate = ZonedDateTime.now(londonZone)
+        val currentDate = ZonedDateTime.now()
         binding.birthdayTextView.text =
             currentDate.format(DateTimeFormatter.ofPattern(Constants.DATE_FORMAT))
 

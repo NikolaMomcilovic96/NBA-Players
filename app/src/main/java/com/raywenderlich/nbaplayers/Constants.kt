@@ -15,6 +15,5 @@ class Constants {
         const val MALE = "Male"
         const val FEMALE = "Female"
         const val DATE_FORMAT = "dd-MM-yyyy"
-        const val timeZone = "Europe/London"
     }
 }
