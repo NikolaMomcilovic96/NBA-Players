@@ -10,6 +10,11 @@ data class Player(
 )
 
 data class User(
+    val firstName: String = "Nikola",
+    val lastName: String = "Momcilovic",
     val username: String = "nikola",
-    val password: String = "Momcilovic96"
+    val email: String = "nikolamomca96@gmail.com",
+    val password: String = "Momcilovic.96",
+    val birthday: String = "05-12-1996",
+    val gender: String = "Male"
 )

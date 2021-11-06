@@ -84,12 +84,12 @@ class MainFragment : Fragment() {
     private fun playerActivity(player: Player) {
         startActivity(
             Intent(activity, PlayerDetailActivity::class.java).apply {
-                putExtra(Constants.title, player.title)
-                putExtra(Constants.desc, player.desc)
-                putExtra(Constants.image, player.image)
-                putExtra(Constants.height, player.height)
-                putExtra(Constants.weight, player.weight)
-                putExtra(Constants.club, player.club)
+                putExtra(Constants.TITLE_TEXT, player.title)
+                putExtra(Constants.DESCRIPTION_TEXT, player.desc)
+                putExtra(Constants.IMAGE_TEXT, player.image)
+                putExtra(Constants.HEIGHT_TEXT, player.height)
+                putExtra(Constants.WEIGHT_TEXT, player.weight)
+                putExtra(Constants.CLUB_TEXT, player.club)
             }
         )
     }

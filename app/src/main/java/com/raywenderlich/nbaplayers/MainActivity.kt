@@ -33,10 +33,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         sharedPreferences =
-            getSharedPreferences(Constants.sharedPref, Context.MODE_PRIVATE)
+            getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE)
         val username = sharedPreferences.getString(Constants.USERNAME, "")
 
-        Toast.makeText(this, "${Constants.hello_msg} $username", Toast.LENGTH_LONG).show()
+        val usernameWithSpace = "$username".padStart(1)
+        Toast.makeText(this, "${Constants.HELLO_MESSAGE}$usernameWithSpace", Toast.LENGTH_LONG).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

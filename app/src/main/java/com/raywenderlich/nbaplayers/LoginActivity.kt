@@ -6,10 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.raywenderlich.nbaplayers.databinding.ActivityLoginBinding
-import com.raywenderlich.nbaplayers.ui.main.User
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 import android.content.Intent
+import com.raywenderlich.nbaplayers.ui.main.User
 
 class LoginActivity : AppCompatActivity() {
 
@@ -24,33 +24,37 @@ class LoginActivity : AppCompatActivity() {
         setContentView(view)
 
         sharedPreferences =
-            getSharedPreferences(Constants.sharedPref, Context.MODE_PRIVATE)
+            getSharedPreferences(Constants.SHARED_PREF, Context.MODE_PRIVATE)
 
         val isUsernameSaved = sharedPreferences.getString(Constants.USERNAME, "")
 
-        if (isUsernameSaved.isNullOrEmpty()){
+        if (isUsernameSaved.isNullOrEmpty()) {
             binding.loginButton.setOnClickListener {
                 inputCheck()
             }
-        }else{
+        } else {
             val username = sharedPreferences.getString(Constants.USERNAME, "").toString()
             val password = sharedPreferences.getString(Constants.PASSWORD, "").toString()
 
-            newActivity(username, password)
+            startMainActivity(username, password)
+        }
+
+        binding.createAccoutButton.setOnClickListener {
+            startActivity(Intent(this, RegistrationActivity::class.java))
         }
     }
 
     private fun inputCheck() {
         val user = User()
 
-        val username = binding.userNameEditText.text?.toString()
-        val password = binding.passwordEditText.text?.toString()
+        val username = binding.userNameEditText.text?.trim().toString()
+        val password = binding.passwordEditText.text?.trim().toString()
 
         when {
-            username.isNullOrEmpty() || password.isNullOrEmpty() -> toastMessage(R.string.empty_fields)
-            username.length < 4 -> toastMessage(R.string.short_username)
+            username.isEmpty() || password.isEmpty() -> toastMessage(R.string.empty_fields)
+            !usernameCheck(username) -> toastMessage(R.string.username_format)
             !passwordFormatCheck(password) -> toastMessage(R.string.password_format)
-            username == user.username && password == user.password -> newActivity(
+            username == user.username && password == user.password -> startMainActivity(
                 username, password)
             else -> toastMessage(R.string.login_error)
         }
@@ -60,14 +64,20 @@ class LoginActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
+    private fun usernameCheck(username: String):Boolean{
+        val regex: Pattern = Pattern.compile("[A-Za-z0-9]{4,}")
+        val text: Matcher = regex.matcher(username)
+        return text.matches()
+    }
+
     private fun passwordFormatCheck(pass: String): Boolean {
         val regex: Pattern =
-            Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}${'$'}")
+            Pattern.compile("^(?=.*?[A-Z])(?=(.*[a-z]))(?=(.*[\\d]))(?=(.*[\\W]))(?!.*\\s).{8,}\$")
         val text: Matcher = regex.matcher(pass)
         return text.matches()
     }
 
-    private fun newActivity(username: String, password: String) {
+    private fun startMainActivity(username: String, password: String) {
         sharedPreferences.edit().apply {
             putString(Constants.USERNAME, username)
             putString(Constants.PASSWORD, password)
